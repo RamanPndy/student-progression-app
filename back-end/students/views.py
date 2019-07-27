@@ -20,6 +20,7 @@ class LoginView(APIView):
     try:
       user = User.objects.get(email=request_data['email'], password=request_data['password'])
       request.session['email'] = request_data['email']
+      print dict(request.session)
       return Response({"result" : 200})
     except:
       return Response({"result": 204})
@@ -37,6 +38,7 @@ class RegisterView(APIView):
 class LogoutView(APIView):
   def post(self, request):
     request_data = request.data
+    print dict(request.session)
     try:
       del request.session['email']
       return Response({"result" : 200})

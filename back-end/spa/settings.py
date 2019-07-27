@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'students',
     'corsheaders',
-    'rest_framework'
+    'rest_framework',
+    'api'
 ]
 
 MIDDLEWARE = [
@@ -133,4 +134,10 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:8080',
 ]
 
-APPEND_SLASH=False
+APPEND_SLASH = False
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}

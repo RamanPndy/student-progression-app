@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Redirect } from 'react-router-dom';
 import PropType from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -8,8 +9,9 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios';
 
 import API from '../API';
+import Config from '../Config';
 
-const APP_CONN = "http://127.0.0.1:8080"
+const APP_CONN = Config.BACKEND_HOST + ":" + Config.BACKED_PORT
 
 const styles = theme => ({
   root: {
@@ -28,8 +30,9 @@ const styles = theme => ({
   submitBtn : {
       marginTop:'20px',
       marginBottom:'20px',
-      marginLeft:'50%',
-      color:'#6728b7'
+      paddingLeft: '25px',
+      color:'#6728b7',
+      flot: 'right'
   },
   card: {
     minWidth: 275,
@@ -47,7 +50,8 @@ class StudentLogin extends Component {
         email: '',
         password: '',
         fieldErrorMsg : "All Fields are mandatory.",
-        requireFields : []
+        requireFields : [],
+        redirect: false
       };
 
     handleChange = name => event => {
@@ -65,12 +69,25 @@ class StudentLogin extends Component {
         
         axios.post(APP_CONN + API.LOGIN, req_payload)
         .then (response => {
+          let respData = response.data['result']
+          if (respData === 200){
+            this.setState({redirect: true})
+          }
         })
         .catch(error => {
             console.log(error)
             alert (error)
         })
       } 
+
+      redirectToProfile = () => {
+        if (this.state.redirect) {
+          return (<Redirect to={{
+            pathname: '/profile',
+            username : this.state.username || this.state.email
+        }} />)
+        }
+      }
     
       showRegistrationComponent = () => {
           this.props.showRegistrationComponent()
@@ -80,6 +97,7 @@ class StudentLogin extends Component {
         const {classes} = this.props;
         return (
             <div>
+                {this.redirectToProfile()}
                 <Paper elevation = {2} className={classes.root}>
                     <Typography variant="h4" gutterBottom align="center">
                         Student Login Form

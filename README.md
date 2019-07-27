@@ -3,6 +3,7 @@ A simple app to capture student score card and academic progression
 <br/>
 Technology Used:<br>
 Backend : Django<br />
+Frontend: ReactJS, Material UI <br>
 Database : Postgresql<br/>
 
 Development Environmet Setup:
@@ -14,7 +15,7 @@ Database: <br>
 <li>psql -d postgres</li>
 <li>copy and paste <b>db.sql</b> file on the postgres shell</li>
 <li>It will create spa user with password which will handle all the db specific operations</li>
-</ul><br>
+</ul>
 Above Steps will create Database <b>spadb</b> on your local machine<br>
 Backend :<br>
 <ul>
@@ -23,7 +24,7 @@ Backend :<br>
 <li>python manage.py makemigrations</li>
 <li>python manage.py migrate</li>
 <li>python manage.py runserver 8080</li>
-</ul><br>
+</ul>
 Above steps will start Django server on localhost:8080<br>
 Fronend : <br>
 <ul>
